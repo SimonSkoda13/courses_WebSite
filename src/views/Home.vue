@@ -23,7 +23,7 @@
       >
         <div class="box">
           <figure class="image mb-4">
-            <img v-bind:src="product.get_thumbnail">
+            <img :src="product.get_thumbnail">
           </figure>
           <h3 class="is-size-4">{{ product.name }}</h3>
           <p class="is-size-6 has-text-grey">${{ product.price }}</p>
@@ -33,6 +33,46 @@
       </div>
     </div>
   </div>
+</template>
+
+
+<script>
+import axios from 'axios'
+import Api from "@/services/api"
+export default {
+  name: 'Home',
+  data() {
+    return {
+      latestProducts: []
+    }
+  },
+  components: {
+  },
+  mounted() {
+    this.getLatestProducts()
+  },
+  methods:{
+    getLatestProducts(){
+        Api.getData()
+        .then(response => {
+          this.latestProducts = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      }
+    }
+  
+}
+</script>
+<style scoped>
+ .image{
+   margin-top: -1.25rem;
+   margin-left: -1.25rem;
+   margin-right: -1.25rem;
+ }
+</style>>
+
 </template>
 
 
